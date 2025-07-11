@@ -9,16 +9,16 @@ pub struct Contract;
 
 #[contractimpl]
 impl Contract {
-    
-    pub fn sumar(env: Env, a:i128, b:i128) -> i128 {
-      //Implementar función que sume dos números
-      return 20;
-    }
+  pub fn add(env: Env, a: i128, b: i128) -> i128 {
+    let suma = a + b;
+    env.storage().instance().set(&RESULT, &suma);
+    suma
+  }
 
-    pub fn resultado_anterior(env: Env) -> i128 {
-           //Implementar función que retorne el valor anterior
-            return 20;
-    }
+  pub fn previous_result(env: Env) -> i128 {
+    let stored_result = env.storage().instance().get(&RESULT).unwrap_or(0);
+    stored_result
+  }
 }
 
 mod test;
